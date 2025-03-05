@@ -1,0 +1,66 @@
+<div class="container w-75 min-vh-100 d-flex align-items-center justify-content-center py-5">
+  <div class="row align-items-stretch w-100 pop-animation">
+    <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6">
+    </div>
+
+    <div class="col">
+      <div class="text-end ">
+          <!-- <img src="image.png" width="48px" alt="image"> -->
+        </div>
+      <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+
+      <form action="#">
+        <div class="mb-4">
+          <label for="email" class="form-label"> Email</label>
+          <input label="example@example.com " type="email" class="form-control" name="email" [(ngModel)]="username">
+        </div>
+        <div class="mb-4"></div>
+        <label for="email" class="form-label"> Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="password">
+        <div class="mb-4"></div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-outline-primary" (click)="login()">Iniciar Sesión</button>
+        </div>
+
+        <div class="my-3">
+          <span>No tienes cuenta <a [routerLink]="['/register']">Registrate</a></span>
+
+        </div>
+      </form>
+
+      <!-- <div class="container w-100 my-5">
+        <div class="row text-center">
+          <div class="col-12">Iniciar Sesión</div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <button class="btn btn-outline-primary w-100 my-1">
+              <div class="row align-items-center">
+                <div class="col-2">
+                  <img src="image.png" width="32" alt="facebook">
+                </div>
+                <div class="col-10">
+                  Facebook
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <button class="btn btn-outline-danger w-100 my-1">
+              <div class="row align-items-center">
+                <div class="col-2">
+                  <img src="image.png" width="32" alt="google">
+                </div>
+                <div class="col-10">
+                  Google
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->

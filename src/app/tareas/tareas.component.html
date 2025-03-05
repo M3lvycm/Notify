@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4 d-flex justify-content-between  m-5">
+  <!-- Formulario fijo a la izquierda -->
+
+  <div class="form-container col-4 pop-animation mt-4">
+  <h3 class="text-center">{{ modoEdicion ? 'Editar Tarea' : 'Agregar Tarea' }}</h3>
+
+    <form [formGroup]="formularioUsuarios">
+      <div class="mb-3">
+        <input type="text" class="form-control mt-2" placeholder="Nombre de la tarea" formControlName="tarea">
+        <textarea class="form-control mt-3" placeholder="Asunto" formControlName="asunto" rows="5"></textarea>
+        <input type="date" class="form-control mt-3" formControlName="fecha">
+        <input type="time" class="form-control mt-3" formControlName="hora">
+      </div>
+      <button class="btn btn-outline-success w-100 pop-animation" (click)="agregarOActualizar()" type="button" [disabled]="formularioUsuarios.invalid">
+        {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
+      </button>
+    </form>
+  </div>
+
+  <!-- Tabla de tareas -->
+  <div class="table-container col-12 pop-animation ml-3">
+    <table class="table    col-12 table-hover tableau">
+      <thead class="table-light">
+        <tr>
+          <th>Tarea</th>
+          <th>Asunto</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Completada</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuario; let i = index">
+          <td class="col-2"> <p>{{ usuario.tarea }}</p></td>
+          <td>
+            <textarea [(ngModel)]="usuario.asunto" class="form-control text-dark w-59" rows="4" disabled=""></textarea>
+          </td>
+          <td>{{ usuario.fecha }}</td>
+          <td>{{ usuario.hora }}</td>
+          <td><input type="checkbox" [(ngModel)]="usuario.check"></td>
+          <td>
+            <button class="btn btn-danger btn-sm me-2" (click)="eliminar(i)">Eliminar</button>
+            <button class="btn btn-warning btn-sm" (click)="editar(i)">Editar</button>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

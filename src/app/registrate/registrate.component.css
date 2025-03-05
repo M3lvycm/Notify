@@ -1,0 +1,42 @@
+.tableau {
+  border-radius: 10px;
+  overflow: hidden; /* Asegura que el border-radius afecte correctamente */
+  border: 1px solid white; /* Borde visible */
+}
+
+.tableau thead {
+  background-color: black;
+  color: white;
+}
+
+.tableau th, .tableau td {
+  border: none; /* Elimina los bordes internos si es necesario */
+  padding: 10px;
+  text-align: left;
+}
+
+.tableau tbody tr {
+  background-color: #f8f9fa;
+}
+
+.tableau tbody tr:nth-child(even) {
+  background-color: #e9ecef;
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop-animation {
+  animation: popIn 0.5s ease-out;
+}

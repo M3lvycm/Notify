@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  justify-content: space-between; /* Espacia los elementos */
+  align-items: flex-start; /* Alinea los elementos arriba */
+  gap: 50px; /* Espacio entre los elementos */
+  border-radius: 50px;
+}
+
+.table-container {
+  flex: 2; /* La tabla ocupa más espacio */
+
+}
+
+.form-container {
+  flex: 1; /* El formulario ocupa menos espacio */
+  background-color: rgb(255, 255, 255); /* Fondo negro */
+  color: rgb(0, 0, 0); /* Texto blanco */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 15px 10px 20px 10px rgba(0,0,0,0.2);
+
+
+}
+
+.form-container input {
+  background-color: white;
+  color: rgb(0, 0, 0);
+  border-radius: 5px;
+
+}
+
+
+.tableau {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 15px 10px 20px 10px rgba(0,0,0,0.2);
+  margin-left: 100px;
+
+
+
+}
+
+.tableau thead {
+  background-color: #ffffff;
+}
+
+.tableau th, .tableau td {
+  padding: 15px;
+  text-align: left;
+}
+
+.tableau tbody tr {
+  background-color: #ffffff;
+  padding: 50px;
+}
+
+.tableau tbody tr:nth-child(even) {
+  background-color: #ffffff;
+}
+
+.tableau tbody tr:hover {
+  background-color: #555;
+}
+
+.tableau textarea {
+  width: 100%; /* Ocupa todo el ancho de la celda */
+  background-color: #ffffff;
+  color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  resize: vertical; /* Permite cambiar el tamaño verticalmente */
+}
+
+
+.tables{
+  border-radius: 20px;
+  box-shadow: 15px 10px 20px 10px rgba(0,0,0,0.2);
+
+}
+
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.pop-animation {
+  animation: popIn 0.5s ease-out;
+}
