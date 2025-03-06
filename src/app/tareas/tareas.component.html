@@ -1,0 +1,65 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+  <div class="row">
+    <!-- Formulario fijo arriba en pantallas pequeñas -->
+    <div class="col-12 col-md-4 form-container pop-animation mb-4">
+      <h3 class="text-center">{{ modoEdicion ? 'Editar Tarea' : 'Agregar Tarea' }}</h3>
+      <form [formGroup]="formularioUsuarios">
+        <div class="mb-3">
+          <input type="text" class="form-control mt-2" placeholder="Nombre de la tarea" formControlName="tarea">
+          <textarea class="form-control mt-3" placeholder="Asunto" formControlName="asunto" rows="5"></textarea>
+          <input type="date" class="form-control mt-3" formControlName="fecha">
+          <input type="time" class="form-control mt-3" formControlName="hora">
+        </div>
+        <button class="btn btn-outline-success w-100 pop-animation mb-3" (click)="agregarOActualizar()" type="button" [disabled]="formularioUsuarios.invalid">
+          {{ modoEdicion ? 'Actualizar' : 'Agregar' }}
+        </button>
+      </form>
+    </div>
+
+ <!-- Contenedor principal con scroll horizontal -->
+<div class="col-12 table-container pop-animation" style="overflow-x: auto;">
+  <!-- Div para definir un ancho mínimo y evitar que la tabla se encoja -->
+  <div style="min-width: 800px;">
+    <table class="table table-hover tableau">
+      <thead class="tableau">
+        <tr>
+          <th>No</th>
+          <th>Tarea</th>
+          <th class="text-center">Asunto</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th class="text-center">Estado</th>
+          <th class="text-center">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuario; let i = index">
+          <td>{{i + 1}}</td>
+          <td class="col-2">
+            <p>{{ usuario.tarea }}</p>
+          </td>
+          <td>
+            <!-- Textarea con ancho fijo y scroll vertical -->
+            <textarea [(ngModel)]="usuario.asunto" class="form-control text-dark w-150" rows="4" disabled style="min-width: 500px; resize: none;"></textarea>
+          </td>
+          <td>{{ usuario.fecha }}</td>
+          <td>{{ usuario.hora }}</td>
+          <td>
+            <select class="form-select">
+              <option selected disabled>Seleccione un Estado</option>
+              <option [id]="item.id" [selected]="usuario.estado == item.id" *ngFor="let item of accionDropdown">{{item.nombre}}</option>
+            </select>
+          </td>
+          <td>
+            <div class="d-flex flex-row gap-2" >
+              <button class="btn btn-danger btn-sm" (click)="eliminar(i)">Eliminar</button>
+              <button class="btn btn-warning btn-sm" (click)="editar(i)">Editar</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

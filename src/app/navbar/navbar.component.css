@@ -1,0 +1,36 @@
+.text{
+  font-family: 'Arial Black', sans-serif;
+  cursor: pointer;
+}
+
+
+li{
+  font-family: 'Arial Black', sans-serif;
+
+}
+
+.move{
+
+  padding-left: 1170px;
+}
+
+.text:hover{
+  color: #2f31d4;
+}
+
+
+.text2:hover{
+  color: #ff0000;
+  cursor: pointer;
+
+}
+
+/* Estilo para el enlace activo: cambiar solo el color del texto */
+.navbar-nav .nav-item .nav-link.active {
+  color: #3d92ec;  /* Cambia el color del texto cuando está activo */
+}
+
+/* Estilo adicional cuando el enlace es hover (cuando el mouse pasa por encima) */
+.navbar-nav .nav-item .nav-link:hover {
+  color: #1c7be0;  /* Cambia el color cuando el mouse pasa por encima */
+}
