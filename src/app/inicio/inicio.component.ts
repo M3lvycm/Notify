@@ -11,11 +11,12 @@ import { NavbarComponent } from '../navbar/navbar.component';
   styleUrl: './inicio.component.css'
 })
 export class InicioComponent {
-constructor(private authService: AuthService, private router: Router) {
+  constructor(private authService: AuthService, private router: Router) {
     if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/']); // Redirigir al login si no está autenticado
     }
   }
+
 
   logout() {
     this.authService.logout();

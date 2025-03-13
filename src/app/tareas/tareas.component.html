@@ -18,48 +18,58 @@
       </form>
     </div>
 
- <!-- Contenedor principal con scroll horizontal -->
-<div class="col-12 table-container pop-animation" style="overflow-x: auto;">
-  <!-- Div para definir un ancho mínimo y evitar que la tabla se encoja -->
-  <div style="min-width: 800px;">
-    <table class="table table-hover tableau">
-      <thead class="tableau">
-        <tr>
-          <th>No</th>
-          <th>Tarea</th>
-          <th class="text-center">Asunto</th>
-          <th>Fecha</th>
-          <th>Hora</th>
-          <th class="text-center">Estado</th>
-          <th class="text-center">Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let usuario of usuario; let i = index">
-          <td>{{i + 1}}</td>
-          <td class="col-2">
-            <p>{{ usuario.tarea }}</p>
-          </td>
-          <td>
-            <!-- Textarea con ancho fijo y scroll vertical -->
-            <textarea [(ngModel)]="usuario.asunto" class="form-control text-dark w-150" rows="4" disabled style="min-width: 500px; resize: none;"></textarea>
-          </td>
-          <td>{{ usuario.fecha }}</td>
-          <td>{{ usuario.hora }}</td>
-          <td>
-            <select class="form-select">
-              <option selected disabled>Seleccione un Estado</option>
-              <option [id]="item.id" [selected]="usuario.estado == item.id" *ngFor="let item of accionDropdown">{{item.nombre}}</option>
-            </select>
-          </td>
-          <td>
-            <div class="d-flex flex-row gap-2" >
-              <button class="btn btn-danger btn-sm" (click)="eliminar(i)">Eliminar</button>
-              <button class="btn btn-warning btn-sm" (click)="editar(i)">Editar</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Contenedor de búsqueda y tabla -->
+    <div class="col-12 col-md-8">
+      <!-- Campo de búsqueda compacto -->
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="Buscar tarea o asunto..." [(ngModel)]="terminoBusqueda">
+      </div>
+
+      <!-- Contenedor principal con scroll horizontal -->
+      <div class="table-container pop-animation" style="overflow-x: auto;">
+        <!-- Div para definir un ancho mínimo y evitar que la tabla se encoja -->
+        <div style="min-width: 800px;">
+          <table class="table table-hover tableau">
+            <thead class="tableau">
+              <tr>
+                <th>No</th>
+                <th>Tarea</th>
+                <th class="text-center">Asunto</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let usuario of filtrarTareas(); let i = index">
+                <td>{{i + 1}}</td>
+                <td class="col-2">
+                  <p>{{ usuario.tarea }}</p>
+                </td>
+                <td>
+                  <!-- Textarea con ancho fijo y scroll vertical -->
+                  <textarea [(ngModel)]="usuario.asunto" class="form-control text-dark w-150" rows="4" disabled style="min-width: 500px; resize: none;"></textarea>
+                </td>
+                <td>{{ usuario.fecha }}</td>
+                <td>{{ usuario.hora }}</td>
+                <td>
+                  <select class="form-select">
+                    <option selected disabled>Seleccione un Estado</option>
+                    <option [id]="item.id" [selected]="usuario.estado == item.id" *ngFor="let item of accionDropdown">{{item.nombre}}</option>
+                  </select>
+                </td>
+                <td>
+                  <div class="d-flex flex-row gap-2">
+                    <button class="btn btn-danger btn-sm" (click)="eliminar(i)"><i class="bi bi-trash"></i></button>
+                    <button class="btn btn-warning btn-sm" (click)="editar(i)"><i class="bi bi-pencil"></i> </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
