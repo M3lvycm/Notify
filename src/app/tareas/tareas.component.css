@@ -1,87 +1,77 @@
 .container {
-  display: flex;
-  justify-content: space-between; /* Espacia los elementos */
-  align-items: flex-start; /* Alinea los elementos arriba */
-  gap: 50px; /* Espacio entre los elementos */
-  border-radius: 50px;
+  max-width: 95%;
 }
-
 .table-container {
-  flex: 2; /* La tabla ocupa más espacio */
+  flex: 2;
+  border-radius: 20px;
+}
+.table-responsive {
+  display: block;
+  width: 100%;
+
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 
 }
+
+.table {
+  border-collapse: separate; /* Evita que las celdas sobrescriban el border-radius */
+  border-spacing: 0; /* Elimina espacios entre celdas */
+}
+
+
+
+.table tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 20px; /* Redondea la esquina inferior izquierda */
+}
+
+.table tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 20px; /* Redondea la esquina inferior derecha */
+}
+
 
 .form-container {
-  flex: 1; /* El formulario ocupa menos espacio */
-  background-color: rgb(255, 255, 255); /* Fondo negro */
-  color: rgb(0, 0, 0); /* Texto blanco */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 15px 10px 20px 10px rgba(0,0,0,0.2);
-
-
-}
-
-.form-container input {
-  background-color: white;
-  color: rgb(0, 0, 0);
-  border-radius: 5px;
-
-}
-
-
-.tableau {
-  border-radius: 10px;
-  overflow: hidden;
-  border: 2px solid rgb(0, 0, 0);
   background-color: rgb(255, 255, 255);
-  color: rgb(255, 255, 255);
+  padding-top: 20px;
   border-radius: 10px;
-  box-shadow: 15px 10px 20px 10px rgba(0,0,0,0.2);
-  margin-left: 100px;
+  box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.2);
+  gap: 20px;
+
+}
+
+@media (max-width: 1024px) {
+  .table-container {
+    margin-top: 20px;
+
+
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-container {
+    align-content: center;
+  }
+
+  .table td textarea {
+    width: 100%; /* En pantallas pequeñas, ocupa el 100% del ancho del contenedor */
+    max-width: 100%; /* Evita que el textarea sea más ancho que el contenedor */
+    font-size: 16px; /* Aumenta el tamaño del texto dentro del textarea */
+  }
 
 
 
 }
 
-.tableau thead {
-  background-color: #ffffff;
-}
-
-.tableau th, .tableau td {
-  padding: 15px;
-  text-align: left;
-}
-
-.tableau tbody tr {
-  background-color: #ffffff;
-  padding: 50px;
-}
-
-.tableau tbody tr:nth-child(even) {
-  background-color: #ffffff;
-}
-
-.tableau tbody tr:hover {
-  background-color: #555;
-}
-
-.tableau textarea {
-  width: 100%; /* Ocupa todo el ancho de la celda */
-  background-color: #ffffff;
-  color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px;
-  resize: vertical; /* Permite cambiar el tamaño verticalmente */
-}
-
-
-.tables{
-  border-radius: 20px;
-  box-shadow: 15px 10px 20px 10px rgba(0,0,0,0.2);
-
-}
 
 
 @keyframes popIn {
@@ -100,4 +90,39 @@
 
 .pop-animation {
   animation: popIn 0.5s ease-out;
+}
+
+
+/* Estilo base para la tabla */
+.table-responsive {
+  display: block;
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
+  overflow-x: auto; /* Habilita el desplazamiento horizontal si es necesario */
+}
+
+.table {
+  width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
+  table-layout: auto; /* Permite que las celdas se ajusten automáticamente al contenido */
+  border-radius: 20px; /* Mantiene el border-radius */
+}
+
+/* Media query para pantallas pequeñas */
+@media (max-width: 576px) {
+  .table-responsive {
+    width: 100%; /* Asegura que la tabla ocupe todo el espacio en pantallas pequeñas */
+    overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+  }
+
+  .table {
+    font-size: 16px; /* Ajusta el tamaño del texto para pantallas pequeñas */
+  }
+
+  .table td, .table th {
+    padding: 10px; /* Aumenta el espacio de las celdas para facilitar la lectura */
+  }
+}
+.tableau textarea {
+  min-width: 100% !important; /* Asegura que el textarea ocupe el 100% del ancho */
+  max-width: 100% !important; /* Evita que el textarea se expanda más allá del ancho de la celda */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
 }

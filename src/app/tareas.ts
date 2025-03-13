@@ -1,7 +1,8 @@
 export interface Tareas {
-  nombre: string,
-  asunto: string,
-  tiempo: string,
-  
-
+  tarea: string;
+  asunto: string;
+  fecha: string;
+  hora: string;
+  estado: string;
 }
+
