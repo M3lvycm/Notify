@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router, RouterModule } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule,   ReactiveFormsModule,   Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-registrate',
-  imports: [FormsModule, RouterModule, CommonModule],
+  imports: [FormsModule, RouterModule, CommonModule, ReactiveFormsModule],
   templateUrl: './registrate.component.html',
   styleUrl: './registrate.component.css'
 })
@@ -20,9 +20,8 @@ export class RegistrateComponent {
 
     this.formRegister = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.email]],
-      confirmPassword: ['', [Validators.required, Validators.email]]
-
+      password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{5,}$/)]],
+     confirmPassword: ['', [Validators.required]],
 
     })
 
@@ -41,9 +40,18 @@ export class RegistrateComponent {
       });
       return;
     }
+    if (this.formRegister.invalid) {
+      Swal.fire({
+        title: 'Error',
+        text: 'Los campos son obligatorios',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+
 
     if (this.authService.register(this.username, this.password)) {
-      // Mostrar alerta sin bloquear la ejecución
       Swal.fire({
         title: 'Usuario registrado',
         text: 'Usuario registrado exitosamente',

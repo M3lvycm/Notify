@@ -13,7 +13,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 export class InicioComponent {
   constructor(private authService: AuthService, private router: Router) {
     if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/']); // Redirigir al login si no está autenticado
+      this.router.navigate(['/']); 
     }
   }
 

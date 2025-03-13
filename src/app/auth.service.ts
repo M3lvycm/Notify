@@ -35,6 +35,9 @@ export class AuthService {
       return { success: false, message: 'Credenciales incorrectas' }; // Contraseña incorrecta
     }
 
+
+
+
     localStorage.setItem('user', email);
     this.router.navigate(['/inicio']);
     return { success: true };
@@ -65,6 +68,46 @@ export class AuthService {
       });
       return false;
     }
+    // if (password.length < 5 ) {
+    //   Swal.fire({
+    //     title: 'Error',
+    //     text: 'La contraseña debe tener al menos 5 caracteres',
+    //     icon: 'error',
+    //     confirmButtonText: 'Aceptar'
+    //   });
+    //   return false;
+    // }
+    // if (!/[A-Z]/.test(password)) {
+    //   Swal.fire({
+    //     title: 'Error',
+    //     text: 'La contraseña debe contener al menos una letra mayúscula',
+    //     icon: 'error',
+    //     confirmButtonText: 'Aceptar',
+    //   });
+    //   return false;
+    // }
+
+
+
+    // if (!/[0-9]/.test(password)) {
+    //   Swal.fire({
+    //     title: 'Error',
+    //     text: 'La contraseña debe contener al menos un número',
+    //     icon: 'error',
+    //     confirmButtonText: 'Aceptar',
+    //   });
+    //   return false;
+    // }
+
+    // if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+    //   Swal.fire({
+    //     title: 'Error',
+    //     text: 'La contraseña debe contener al menos un símbolo',
+    //     icon: 'error',
+    //     confirmButtonText: 'Aceptar',
+    //   });
+    //   return false;
+    // }
 
     // Guardar usuario en la lista
     this.users.push({ email, password });

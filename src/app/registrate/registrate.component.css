@@ -1,7 +1,7 @@
 .tableau {
   border-radius: 10px;
-  overflow: hidden; /* Asegura que el border-radius afecte correctamente */
-  border: 1px solid white; /* Borde visible */
+  overflow: hidden;
+  border: 1px solid white;
 }
 
 .bg {
@@ -19,7 +19,7 @@
 }
 
 .tableau th, .tableau td {
-  border: none; /* Elimina los bordes internos si es necesario */
+  border: none; 
   padding: 10px;
   text-align: left;
 }

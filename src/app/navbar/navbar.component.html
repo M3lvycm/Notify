@@ -1,26 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid d-flex justify-content-between align-items-center ms-4 ma-4">
-    <!-- Enlace para el logo o página de inicio -->
+
     <a class="navbar-brand" [routerLink]="['/inicio']"><strong class="text-primary">Notify</strong></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Menú de navegación -->
     <div class="collapse navbar-collapse" id="navbarNav">
      <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 
-      <!-- Enlace Quienes somos -->
       <li class="nav-item">
         <a class="nav-link text" [routerLink]="['/inicio']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Quienes somos?</a>
       </li>
 
-      <!-- Enlace Iniciar con tus tareas -->
       <li class="nav-item">
         <a class="nav-link text" [routerLink]="['/tareas']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Iniciar con tus tareas</a>
       </li>
 
-      <!-- Enlace Salir con evento click -->
       <li class="text2">
         <a class="nav-link text2" (click)="logout()">Salir</a>
       </li>

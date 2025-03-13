@@ -1,21 +1,28 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Tareas } from '../tareas';
 import Swal from 'sweetalert2';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-tareas',
   imports: [NavbarComponent, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './tareas.component.html',
-  styleUrl: './tareas.component.css'
+  styleUrl: './tareas.component.css',
 })
 export class TareasComponent {
   title = 'TORTURA';
 
   hola: boolean = false;
-  usuario: Tareas[] = [];
+  tareas: Tareas[] = [];
   accionDropdown: any[] = [];
   mostrarContenedor: boolean = false;
   mostrarContenedor2: boolean = false;
@@ -23,32 +30,23 @@ export class TareasComponent {
   indiceEdicion: number | null = null;
   terminoBusqueda: string = ''; // Nueva propiedad para el término de búsqueda
 
-  formularioUsuarios: FormGroup;
+  formularioTareas: FormGroup;
 
   constructor(private fb: FormBuilder) {
-    this.usuario = [
-      {
-        tarea: "Prueba",
-        asunto: "Esto es una prueba",
-        fecha: "1-4-2025",
-        hora: "1:00am",
-        estado: "pendiente"
-      },
-    ];
+    this.tareas = [];
 
-    // Opciones del dropdown de estado
     this.accionDropdown = [
       { id: 'pendiente', nombre: 'Pendiente' },
       { id: 'completada', nombre: 'Completada' },
-      { id: 'noCompletada', nombre: 'No Completada' }
+      { id: 'noCompletada', nombre: 'No Completada' },
     ];
 
-    // Inicializar el formulario
-    this.formularioUsuarios = this.fb.group({
+    this.formularioTareas = this.fb.group({
+      id: [0],
       tarea: ['', Validators.required],
       asunto: ['', Validators.required],
       fecha: ['', Validators.required],
-      hora: ['', Validators.required]
+      hora: ['', Validators.required],
     });
   }
 
@@ -61,29 +59,18 @@ export class TareasComponent {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Sí, borrar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.usuario.splice(indice, 1);
-        Swal.fire(
-          '¡Borrado!',
-          'La tarea ha sido eliminada.',
-          'success'
-        );
+        this.tareas.splice(indice, 1);
+        Swal.fire('¡Borrado!', 'La tarea ha sido eliminada.', 'success');
         this.resetFormulario();
       }
     });
   }
-  agregar() {
-    const nuevaTarea = this.formularioUsuarios.value;
-    nuevaTarea.estado = "pendiente"; // Asignar estado "Pendiente" por defecto
-    this.usuario.push(nuevaTarea);
-    this.formularioUsuarios.reset();
-    this.mostrarContenedor = false;
-  }
 
   editar(indice: number) {
-    this.formularioUsuarios.patchValue(this.usuario[indice]);
+    this.formularioTareas.patchValue(this.tareas[indice]);
     this.mostrarContenedor = true;
     this.modoEdicion = true;
     this.indiceEdicion = indice;
@@ -91,50 +78,70 @@ export class TareasComponent {
   }
 
   resetFormulario() {
-    this.formularioUsuarios.reset();
+    this.formularioTareas.reset();
     this.modoEdicion = false;
     this.indiceEdicion = null;
     this.mostrarContenedor = false;
   }
 
-  actualizar(indice: number) {
-    const estadoOriginal = this.usuario[indice].estado; // Conservar el estado original
-    this.usuario[indice] = { ...this.formularioUsuarios.value, estado: estadoOriginal };
-  }
 
   agregarOActualizar() {
     if (this.modoEdicion && this.indiceEdicion !== null) {
-      const estadoOriginal = this.usuario[this.indiceEdicion].estado; // Conservar el estado original
-      this.usuario[this.indiceEdicion] = { ...this.formularioUsuarios.value, estado: estadoOriginal };
+      const estadoOriginal = this.tareas[this.indiceEdicion].estado; 
+      this.tareas[this.indiceEdicion] = {
+        ...this.formularioTareas.value,
+        estado: estadoOriginal != 'pendiente' ? 'pendiente' :estadoOriginal
+      };
     } else {
-      const nuevaTarea = this.formularioUsuarios.value;
-      nuevaTarea.estado = "pendiente"; // Asignar estado "Pendiente" por defecto
-      this.usuario.push(nuevaTarea);
+      const lastTarea = this.tareas[this.tareas.length -1];
+      const id = lastTarea ? lastTarea.id + 1 : 1;
+      const nuevaTarea = this.formularioTareas.value;
+      nuevaTarea.estado = 'pendiente'; // Asignar estado "Pendiente" por defecto
+      nuevaTarea.id = id;
+      this.tareas.push(nuevaTarea);
+
     }
     this.resetFormulario();
   }
 
-  cambiarEstado(usuario: Tareas, event: Event) {
+  cambiarEstado(event: Event, tareaId: number) {
     const selectElement = event.target as HTMLSelectElement;
-    usuario.estado = selectElement.value; // Actualiza el estado
+    const nuevoEstado = selectElement.value;
+    const tituloEstado = selectElement.options[selectElement.selectedIndex].text;
+
+    const tarea = this.tareas.find((tarea) => tarea.id === tareaId);
+    tarea!.estado = nuevoEstado;
+
+      Swal.fire({
+        title: '¡Hecho!',
+        text: `El estado de la tarea ha sido actualizado a ${tituloEstado}.`,
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false,
+      });
   }
 
-  // Función para filtrar las tareas
   filtrarTareas(): Tareas[] {
     if (!this.terminoBusqueda) {
-      return this.usuario; // Si no hay término de búsqueda, devuelve todas las tareas
+      return this.tareas;
     }
 
-    return this.usuario.filter((tarea, index) => {
+    return this.tareas.filter((tarea, index) => {
       // Busca por número de tarea (índice + 1)
       const numeroTarea = (index + 1).toString();
 
       // Busca por hora, fecha y estado
       return (
         numeroTarea.includes(this.terminoBusqueda.toLowerCase()) || // Busca por número
-        tarea.tarea.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por nombre de tarea
-        tarea.asunto.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por asunto
-        tarea.fecha.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por fecha
+        tarea.tarea
+          .toLowerCase()
+          .includes(this.terminoBusqueda.toLowerCase()) || // Busca por nombre de tarea
+        tarea.asunto
+          .toLowerCase()
+          .includes(this.terminoBusqueda.toLowerCase()) || // Busca por asunto
+        tarea.fecha
+          .toLowerCase()
+          .includes(this.terminoBusqueda.toLowerCase()) || // Busca por fecha
         tarea.hora.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por hora
         tarea.estado.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) // Busca por estado
       );

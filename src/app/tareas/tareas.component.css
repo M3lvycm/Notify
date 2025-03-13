@@ -8,7 +8,6 @@
 .table-responsive {
   display: block;
   width: 100%;
-
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
@@ -19,24 +18,20 @@
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-
 }
 
 .table {
-  border-collapse: separate; /* Evita que las celdas sobrescriban el border-radius */
-  border-spacing: 0; /* Elimina espacios entre celdas */
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
-
-
 .table tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 20px; /* Redondea la esquina inferior izquierda */
+  border-bottom-left-radius: 20px;
 }
 
 .table tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 20px; /* Redondea la esquina inferior derecha */
+  border-bottom-right-radius: 20px;
 }
-
 
 .form-container {
   background-color: rgb(255, 255, 255);
@@ -44,14 +39,11 @@
   border-radius: 10px;
   box-shadow: 5px 5px 15px 0px rgba(0,0,0,0.2);
   gap: 20px;
-
 }
 
 @media (max-width: 1024px) {
   .table-container {
     margin-top: 20px;
-
-
   }
   .row {
     display: flex;
@@ -61,32 +53,12 @@
   .form-container {
     align-content: center;
   }
-
   .table td textarea {
-    width: 100%; /* En pantallas pequeñas, ocupa el 100% del ancho del contenedor */
-    max-width: 100%; /* Evita que el textarea sea más ancho que el contenedor */
-    font-size: 16px; /* Aumenta el tamaño del texto dentro del textarea */
+    width: 100%;
+    max-width: 100%;
+    font-size: 16px;
   }
-
-
-
 }
-
-.estado-pendiente {
-  background-color: orange;
-  color: white;
-}
-
-.estado-noCompletada {
-  background-color: red;
-  color: white;
-}
-
-.estado-completada {
-  background-color: green;
-  color: white;
-}
-
 
 @keyframes popIn {
   0% {
@@ -106,37 +78,33 @@
   animation: popIn 0.5s ease-out;
 }
 
-
-/* Estilo base para la tabla */
 .table-responsive {
   display: block;
-  width: 100%; /* Asegura que la tabla ocupe todo el ancho disponible */
-  overflow-x: auto; /* Habilita el desplazamiento horizontal si es necesario */
+  width: 100%;
+  overflow-x: auto;
 }
 
 .table {
-  width: 100%; /* Asegura que la tabla ocupe todo el ancho del contenedor */
-  table-layout: auto; /* Permite que las celdas se ajusten automáticamente al contenido */
-  border-radius: 20px; /* Mantiene el border-radius */
+  width: 100%;
+  table-layout: auto;
+  border-radius: 20px;
 }
 
-/* Media query para pantallas pequeñas */
 @media (max-width: 576px) {
   .table-responsive {
-    width: 100%; /* Asegura que la tabla ocupe todo el espacio en pantallas pequeñas */
-    overflow-x: auto; /* Permite desplazamiento horizontal en pantallas pequeñas */
+    width: 100%;
+    overflow-x: auto;
   }
-
   .table {
-    font-size: 16px; /* Ajusta el tamaño del texto para pantallas pequeñas */
+    font-size: 16px;
   }
-
   .table td, .table th {
-    padding: 10px; /* Aumenta el espacio de las celdas para facilitar la lectura */
+    padding: 10px;
   }
 }
+
 .tableau textarea {
-  min-width: 100% !important; /* Asegura que el textarea ocupe el 100% del ancho */
-  max-width: 100% !important; /* Evita que el textarea se expanda más allá del ancho de la celda */
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  min-width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
 }

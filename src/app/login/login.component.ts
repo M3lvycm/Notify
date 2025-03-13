@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private router: Router // Inyecta Router aquí
+    private router: Router
   ) { }
 
   login() {
@@ -36,7 +36,7 @@ export class LoginComponent {
     const result = this.authService.login(this.username, this.password);
     if (!result.success) {
       if (result.message === 'El usuario no existe') {
-        // Mostrar SweetAlert2 para redirigir al registro
+
         Swal.fire({
           title: '¿Eres nuevo?',
           text: 'Regístrate para continuar',
@@ -46,11 +46,11 @@ export class LoginComponent {
           cancelButtonText: 'Cancelar'
         }).then((result) => {
           if (result.isConfirmed) {
-            this.router.navigate(['/register']); // Redirigir a la página de registro
+            this.router.navigate(['/register']);
           }
         });
       } else if (result.message === 'Credenciales incorrectas') {
-        // Mostrar error de credenciales incorrectas
+
         Swal.fire({
           title: 'Error',
           text: 'La contraseña es incorrecta',
@@ -58,7 +58,7 @@ export class LoginComponent {
           confirmButtonText: 'Aceptar'
         });
       } else {
-        // Mostrar otro error (por ejemplo, campos vacíos)
+     
         Swal.fire({
           title: 'Error',
           text: result.message,

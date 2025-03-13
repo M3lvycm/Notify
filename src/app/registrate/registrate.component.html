@@ -9,20 +9,32 @@
         </div>
       <h2 class="fw-bold text-center py-5">Registrate</h2>
 
-      <form >
+      <form [formGroup]="formRegister" >
         <div class="mb-4">
-          <label for="email" class="form-label"> Name</label>
           <label for="email" class="form-label"> Email</label>
 
-          <input type="email" class="form-control" name="email" [(ngModel)]="username">
+          <input type="email" class="form-control" name="email" [(ngModel)]="username" formControlName="email">
+          <div *ngIf="formRegister.get('email')?.invalid && formRegister.get('email')?.touched" class="text-danger">
+            El email es obligatorio
+          </div>
+
         </div>
         <div class="mb-4"></div>
         <label for="email" class="form-label"> Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="password">
+        <input type="password" class="form-control" name="password" [(ngModel)]="password" formControlName="password">
         <div class="mb-4"></div>
-        <label for="email" class="form-label"> Confirmar contraseña</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="confirmPassword">
+        <div *ngIf="formRegister.get('password')?.invalid && formRegister.get('password')?.touched" class="text-danger">
+          La contraseña debe tener al menos 5 caracteres, una mayúscula, un número y un simbolo
+        </div>
+
+
+
+        <label for="email" class="form-label"> Confirm password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="confirmPassword" formControlName="confirmPassword">
         <div class="mb-4"></div>
+        <div *ngIf="formRegister.get('confirmPassword')?.invalid && formRegister.get('confirmPassword')?.touched" class="text-danger">
+          Las contraseñas no coinciden
+        </div>
 
 
         <div class=" mb-3">
