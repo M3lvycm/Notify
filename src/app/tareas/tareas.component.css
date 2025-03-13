@@ -72,6 +72,20 @@
 
 }
 
+.estado-pendiente {
+  background-color: orange;
+  color: white;
+}
+
+.estado-noCompletada {
+  background-color: red;
+  color: white;
+}
+
+.estado-completada {
+  background-color: green;
+  color: white;
+}
 
 
 @keyframes popIn {

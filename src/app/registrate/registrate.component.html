@@ -9,7 +9,7 @@
         </div>
       <h2 class="fw-bold text-center py-5">Registrate</h2>
 
-      <form action="#">
+      <form >
         <div class="mb-4">
           <label for="email" class="form-label"> Email</label>
           <input type="email" class="form-control" name="email" [(ngModel)]="username">
@@ -23,11 +23,13 @@
         <div class="mb-4"></div>
 
 
+        <div class=" mb-3">
+          <a [routerLink]="['/login']" class="text-decoration-none">¿Ya tienes una cuenta? Inicia sesión</a>
+                </div>
 
         <div class="d-grid">
           <button type="submit" class="btn btn-outline-primary" (click)="register()">Registrate</button>
         </div>
-
 
       </form>
 

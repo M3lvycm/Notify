@@ -16,25 +16,28 @@ export class AuthService {
 
   constructor(private router: Router) { }
 
-  login(email: string, password: string): boolean {
+  login(email: string, password: string): { success: boolean, message?: string } {
     email = email.trim().toLowerCase();
     password = password.trim();
 
     // Validación de campos vacíos
     if (!email || !password) {
-      alert('El email y la contraseña son obligatorios');
-      return false; // Retorna false si hay campos vacíos
+      return { success: false, message: 'El email y la contraseña son obligatorios' };
     }
 
-    const user = this.users.find(user => user.email === email && user.password === password);
-    if (user) {
-      localStorage.setItem('user', email);
-      this.router.navigate(['/inicio']);
-      return true;
+    const user = this.users.find(user => user.email === email);
+
+    if (!user) {
+      return { success: false, message: 'El usuario no existe' }; // Usuario no existe
     }
 
-    // alert('Credenciales incorrectas');
-    return false;
+    if (user.password !== password) {
+      return { success: false, message: 'Credenciales incorrectas' }; // Contraseña incorrecta
+    }
+
+    localStorage.setItem('user', email);
+    this.router.navigate(['/inicio']);
+    return { success: true };
   }
 
 
@@ -44,25 +47,34 @@ export class AuthService {
     password = password.trim();
 
     if (!email || !password) {
-    Swal.fire({
-      title: 'El email y la contraseña son obligatorios',
-      icon: 'error',
-      text: 'Complete los campos',
-      timer: 2000
-
-    })
+      Swal.fire({
+        title: 'Error',
+        text: 'El email y la contraseña son obligatorios',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
       return false;
     }
 
     if (this.users.some(user => user.email === email)) {
-      alert('El usuario ya existe');
+      Swal.fire({
+        title: 'Error',
+        text: 'El usuario ya existe',
+        icon: 'error',
+        confirmButtonText: 'Aceptar'
+      });
       return false;
     }
 
+    // Guardar usuario en la lista
     this.users.push({ email, password });
-    // alert('Usuario registrado exitosamente');
-    return true;
+
+    // Guardar en localStorage para persistencia
+    localStorage.setItem('user', email);
+
+    return true; // Indicar que el registro fue exitoso
   }
+
 
   getUsers(): { email: string, password: string }[] {
     return this.users;

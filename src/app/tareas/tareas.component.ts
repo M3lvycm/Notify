@@ -3,6 +3,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Tareas } from '../tareas';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tareas',
@@ -20,6 +21,7 @@ export class TareasComponent {
   mostrarContenedor2: boolean = false;
   modoEdicion: boolean = false;
   indiceEdicion: number | null = null;
+  terminoBusqueda: string = ''; // Nueva propiedad para el término de búsqueda
 
   formularioUsuarios: FormGroup;
 
@@ -28,11 +30,10 @@ export class TareasComponent {
       {
         tarea: "Prueba",
         asunto: "Esto es una prueba",
-        fecha: "10-2030-1012",
-        hora: "1:00an",
+        fecha: "1-4-2025",
+        hora: "1:00am",
         estado: "pendiente"
       },
-
     ];
 
     // Opciones del dropdown de estado
@@ -52,11 +53,27 @@ export class TareasComponent {
   }
 
   eliminar(indice: number) {
-    this.usuario.splice(indice, 1);
-    this.formularioUsuarios.reset();
-
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¿Realmente quieres borrar esta tarea?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.usuario.splice(indice, 1);
+        Swal.fire(
+          '¡Borrado!',
+          'La tarea ha sido eliminada.',
+          'success'
+        );
+        this.resetFormulario();
+      }
+    });
   }
-
   agregar() {
     const nuevaTarea = this.formularioUsuarios.value;
     nuevaTarea.estado = "pendiente"; // Asignar estado "Pendiente" por defecto
@@ -97,5 +114,30 @@ export class TareasComponent {
     this.resetFormulario();
   }
 
+  cambiarEstado(usuario: Tareas, event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    usuario.estado = selectElement.value; // Actualiza el estado
+  }
 
+  // Función para filtrar las tareas
+  filtrarTareas(): Tareas[] {
+    if (!this.terminoBusqueda) {
+      return this.usuario; // Si no hay término de búsqueda, devuelve todas las tareas
+    }
+
+    return this.usuario.filter((tarea, index) => {
+      // Busca por número de tarea (índice + 1)
+      const numeroTarea = (index + 1).toString();
+
+      // Busca por hora, fecha y estado
+      return (
+        numeroTarea.includes(this.terminoBusqueda.toLowerCase()) || // Busca por número
+        tarea.tarea.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por nombre de tarea
+        tarea.asunto.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por asunto
+        tarea.fecha.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por fecha
+        tarea.hora.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por hora
+        tarea.estado.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) // Busca por estado
+      );
+    });
+  }
 }
