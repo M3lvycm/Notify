@@ -9,14 +9,20 @@
         </div>
       <h2 class="fw-bold text-center py-5">Bienvenido</h2>
 
-      <form action="#">
+      <form [formGroup]="formLogin">
         <div class="mb-4">
           <label for="email" class="form-label"> Email</label>
-          <input label="example@example.com " type="email" class="form-control" name="email" [(ngModel)]="username">
+          <input label="example@example.com " type="email" class="form-control" name="email" [(ngModel)]="username" formControlName="email">
+          <div *ngIf="formLogin.get('email')?.invalid && formLogin.get('email')?.touched" class="text-danger">
+            El email es obligatorio
+          </div>
         </div>
         <div class="mb-4"></div>
         <label for="email" class="form-label"> Password</label>
-        <input type="password" class="form-control" name="password" [(ngModel)]="password">
+        <input type="password" class="form-control" name="password" [(ngModel)]="password" formControlName="password">
+        <div *ngIf="formLogin.get('password')?.invalid && formLogin.get('password')?.touched" class="text-danger">
+          La contraseña debe tener al menos 5 caracteres, una mayúscula, un número y un simbolo
+        </div>
         <div class="mb-4"></div>
         <div class="d-grid">
           <button type="submit" class="btn btn-outline-primary" (click)="login()">Iniciar Sesión</button>

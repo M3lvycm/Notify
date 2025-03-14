@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router'; // Importa Router
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
@@ -15,12 +15,17 @@ export class LoginComponent {
 
   username = '';
   password = '';
-
+  formLogin: FormGroup;
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private router: Router
-  ) { }
+  ) {
+       this.formLogin = this.fb.group({
+          email: ['', [Validators.required, Validators.email]],
+          password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{5,}$/)]],
+       });
+  }
 
   login() {
     if (!this.username.trim() || !this.password.trim()) {
@@ -58,7 +63,7 @@ export class LoginComponent {
           confirmButtonText: 'Aceptar'
         });
       } else {
-     
+
         Swal.fire({
           title: 'Error',
           text: result.message,
