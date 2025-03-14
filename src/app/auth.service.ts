@@ -9,9 +9,7 @@ import Swal from 'sweetalert2';
 export class AuthService {
 
   private users: { email: string, password: string }[] = [
-    { email: 'PerroVerde@gmail.com', password: '1234' },
-    { email: 'ElprofeGuillermo@gmail.com', password: '12345' },
-    { email: 'melvisyaelc@gmail.com', password: '123456' }
+
   ];
 
   constructor(private router: Router) { }
