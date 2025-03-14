@@ -28,7 +28,7 @@ export class TareasComponent {
   mostrarContenedor2: boolean = false;
   modoEdicion: boolean = false;
   indiceEdicion: number | null = null;
-  terminoBusqueda: string = ''; // Nueva propiedad para el término de búsqueda
+  terminoBusqueda: string = ''; 
 
   formularioTareas: FormGroup;
 
@@ -87,7 +87,7 @@ export class TareasComponent {
 
   agregarOActualizar() {
     if (this.modoEdicion && this.indiceEdicion !== null) {
-      const estadoOriginal = this.tareas[this.indiceEdicion].estado; 
+      const estadoOriginal = this.tareas[this.indiceEdicion].estado;
       this.tareas[this.indiceEdicion] = {
         ...this.formularioTareas.value,
         estado: estadoOriginal != 'pendiente' ? 'pendiente' :estadoOriginal
@@ -96,7 +96,7 @@ export class TareasComponent {
       const lastTarea = this.tareas[this.tareas.length -1];
       const id = lastTarea ? lastTarea.id + 1 : 1;
       const nuevaTarea = this.formularioTareas.value;
-      nuevaTarea.estado = 'pendiente'; // Asignar estado "Pendiente" por defecto
+      nuevaTarea.estado = 'pendiente';
       nuevaTarea.id = id;
       this.tareas.push(nuevaTarea);
 
@@ -127,23 +127,23 @@ export class TareasComponent {
     }
 
     return this.tareas.filter((tarea, index) => {
-      // Busca por número de tarea (índice + 1)
+
       const numeroTarea = (index + 1).toString();
 
-      // Busca por hora, fecha y estado
+
       return (
-        numeroTarea.includes(this.terminoBusqueda.toLowerCase()) || // Busca por número
+        numeroTarea.includes(this.terminoBusqueda.toLowerCase()) ||
         tarea.tarea
           .toLowerCase()
-          .includes(this.terminoBusqueda.toLowerCase()) || // Busca por nombre de tarea
+          .includes(this.terminoBusqueda.toLowerCase()) ||
         tarea.asunto
           .toLowerCase()
-          .includes(this.terminoBusqueda.toLowerCase()) || // Busca por asunto
+          .includes(this.terminoBusqueda.toLowerCase()) ||
         tarea.fecha
           .toLowerCase()
-          .includes(this.terminoBusqueda.toLowerCase()) || // Busca por fecha
-        tarea.hora.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) || // Busca por hora
-        tarea.estado.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) // Busca por estado
+          .includes(this.terminoBusqueda.toLowerCase()) ||
+        tarea.hora.toLowerCase().includes(this.terminoBusqueda.toLowerCase()) ||
+        tarea.estado.toLowerCase().includes(this.terminoBusqueda.toLowerCase())
       );
     });
   }

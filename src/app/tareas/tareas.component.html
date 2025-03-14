@@ -2,7 +2,6 @@
 
 <div class="container mt-4">
   <div class="row">
-    <!-- Formulario fijo arriba en pantallas pequeñas -->
     <div class="col-12 col-md-4 form-container pop-animation mb-4">
       <h3 class="text-center">{{ modoEdicion ? 'Editar Tarea' : 'Agregar Tarea' }}</h3>
       <form [formGroup]="formularioTareas">
@@ -19,16 +18,14 @@
       </form>
     </div>
 
-    <!-- Contenedor de búsqueda y tabla -->
+    
     <div class="col-12 col-md-8">
-      <!-- Campo de búsqueda compacto -->
+  
       <div class="mb-3">
         <input type="text" class="form-control" placeholder="Buscar tarea o asunto..." [(ngModel)]="terminoBusqueda">
       </div>
 
-      <!-- Contenedor principal con scroll horizontal -->
       <div class="table-container pop-animation" style="overflow-x: auto;">
-        <!-- Div para definir un ancho mínimo y evitar que la tabla se encoja -->
         <div style="min-width: 800px;">
           <table class="table table-hover tableau">
             <thead class="tableau">
@@ -49,7 +46,6 @@
                   <p>{{ tarea.tarea }}</p>
                 </td>
                 <td>
-                  <!-- Textarea con ancho fijo y scroll vertical -->
                   <textarea [(ngModel)]="tarea.asunto" class="form-control text-dark w-150" rows="4" disabled style="min-width: 500px; resize: none;"></textarea>
                 </td>
                 <td>{{ tarea.fecha }}</td>
