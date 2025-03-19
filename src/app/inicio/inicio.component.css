@@ -55,8 +55,6 @@ p{
 }
 
 .pendulum-animation {
-  display: inline-block;
-  font-weight: bold;
-  font-family: 'Arial Black', sans-serif;
+      
   animation: pendulum 3.5s infinite ease-in-out;
 }
